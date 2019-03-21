@@ -1,0 +1,21 @@
+apply plugin: 'application'
+
+mainClassName = 'demos.MainDemo'
+
+repositories {
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    }
+}
+
+dependencies {
+    compile 'com.jfoenix:jfoenix:8.0.8' // Java 8
+    // NOTE: the latest version _is_ 8.0.1!
+    // 8.0.7 was published by mistake
+    compile 'io.datafx:datafx:8.0.1'
+    compile 'io.datafx:flow:8.0.1'
+
+    // FontAwesome (Bintray)
+    compile 'de.jensd:fontawesomefx-fontawesome:4.6.3'
+    compile 'de.jensd:fontawesomefx-commons:8.12'
+}
