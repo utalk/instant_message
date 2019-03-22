@@ -36,14 +36,14 @@ public final class MainController {
     @FXML
     private JFXHamburger titleBurger;
 
-    @FXML
-    private StackPane optionsBurger;
-    @FXML
-    private JFXRippler optionsRippler;
+//    @FXML
+//    private StackPane optionsBurger;
+//    @FXML
+//    private JFXRippler optionsRippler;
     @FXML
     private JFXDrawer drawer;
 
-    private JFXPopup toolbarPopup;
+//    private JFXPopup toolbarPopup;
 
     /**
      * init fxml when loaded.
@@ -69,15 +69,15 @@ public final class MainController {
             }
         });
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ui/popup/MainPopup.fxml"));
-        loader.setController(new InputController());
-        toolbarPopup = new JFXPopup(loader.load());
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ui/popup/MainPopup.fxml"));
+//        loader.setController(new InputController());
+//        toolbarPopup = new JFXPopup(loader.load());
 
-        optionsBurger.setOnMouseClicked(e -> toolbarPopup.show(optionsBurger,
-                                                               PopupVPosition.TOP,
-                                                               PopupHPosition.RIGHT,
-                                                               -12,
-                                                               15));
+//        optionsBurger.setOnMouseClicked(e -> toolbarPopup.show(optionsBurger,
+//                                                               PopupVPosition.TOP,
+//                                                               PopupHPosition.RIGHT,
+//                                                               -12,
+//                                                               15));
 
         // create the inner flow and content
         context = new ViewFlowContext();
@@ -98,16 +98,16 @@ public final class MainController {
                                                                                        SWIPE_LEFT)));
     }
 
-    public static final class InputController {
-        @FXML
-        private JFXListView<?> toolbarPopupList;
-
-        // close application
-        @FXML
-        private void submit() {
-            if (toolbarPopupList.getSelectionModel().getSelectedIndex() == 1) {
-                Platform.exit();
-            }
-        }
-    }
+//    public static final class InputController {
+//        @FXML
+//        private JFXListView<?> toolbarPopupList;
+//
+//        // close application
+//        @FXML
+//        private void submit() {
+//            if (toolbarPopupList.getSelectionModel().getSelectedIndex() == 1) {
+//                Platform.exit();
+//            }
+//        }
+//    }
 }
