@@ -77,3 +77,6 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 /demo.iml
+settings.gradle
+.idea/misc.xml
+.idea/vcs.xml

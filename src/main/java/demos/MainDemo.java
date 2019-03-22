@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.svg.SVGGlyphLoader;
+import demos.entity.Message;
+import demos.global.GlobalValue;
 import demos.gui.main.MainController;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.container.DefaultFlowContainer;
@@ -15,8 +17,11 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class MainDemo extends Application {
 
@@ -29,6 +34,7 @@ public class MainDemo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        initStub();
         new Thread(() -> {
             try {
                 SVGGlyphLoader.loadGlyphsFont(MainDemo.class.getResourceAsStream("/fonts/icomoon.svg"),
@@ -65,6 +71,22 @@ public class MainDemo extends Application {
                            MainDemo.class.getResource("/css/jfoenix-main-demo.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void initStub() {
+        GlobalValue.toUser = "ABCDEF";
+        Message[] messages = new Message[20];
+        for(int i = 0;i < 20;i++){
+            Message message = new Message();
+            message.setFrom("ABCDEF");
+            message.setTo("c");
+            message.setContent("message:"+i);
+            message.setMessageId(i);
+            message.setSendTime(new Timestamp(new Date().getTime()));
+            messages[i] = message;
+        }
+        GlobalValue.pairs = new Pair[1];
+        GlobalValue.pairs[0] = new Pair<>("ABCDEF",messages);
     }
 
 }
