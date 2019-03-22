@@ -1,20 +1,16 @@
 package demos.gui.main;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.JFXPopup.PopupHPosition;
-import com.jfoenix.controls.JFXPopup.PopupVPosition;
 import demos.datafx.ExtendedAnimatedFlowContainer;
 import demos.gui.sidemenu.SideMenuController;
-import demos.gui.uicomponents.ButtonController;
+import demos.gui.uicomponents.ChatController;
 import io.datafx.controller.ViewController;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.FlowHandler;
 import io.datafx.controller.flow.context.FXMLViewFlowContext;
 import io.datafx.controller.flow.context.ViewFlowContext;
 import javafx.animation.Transition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
@@ -82,7 +78,7 @@ public final class MainController {
         // create the inner flow and content
         context = new ViewFlowContext();
         // set the default controller
-        Flow innerFlow = new Flow(ButtonController.class);
+        Flow innerFlow = new Flow(ChatController.class);
 
         final FlowHandler flowHandler = innerFlow.createHandler(context);
         context.register("ContentFlowHandler", flowHandler);
