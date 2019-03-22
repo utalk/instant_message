@@ -1,6 +1,6 @@
 apply plugin: 'application'
 
-mainClassName = 'demos.MainDemo'
+mainClassName = 'viewer.MainDemo'
 
 repositories {
     repositories {
@@ -18,4 +18,12 @@ dependencies {
     // FontAwesome (Bintray)
     compile 'de.jensd:fontawesomefx-fontawesome:4.6.3'
     compile 'de.jensd:fontawesomefx-commons:8.12'
+    compile 'com.google.code.gson:gson:2.8.0'
+    
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.slf4j:slf4j-nop:1.7.24'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+    compileOnly 'org.projectlombok:lombok:1.18.2'
 }
