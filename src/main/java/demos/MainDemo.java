@@ -62,7 +62,9 @@ public class MainDemo extends Application {
             Rectangle2D bounds = Screen.getScreens().get(0).getBounds();
             width = bounds.getWidth() / 2.5;
             height = bounds.getHeight() / 1.35;
-        }catch (Exception e){ }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         Scene scene = new Scene(decorator, width, height);
         final ObservableList<String> stylesheets = scene.getStylesheets();

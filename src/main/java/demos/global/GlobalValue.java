@@ -9,5 +9,5 @@ public class GlobalValue {
     public static boolean groupTalking;
 
     //userPort,message
-    public static Pair<String, Message[]>[] pairs;
+    public static Pair[] pairs;
 }
