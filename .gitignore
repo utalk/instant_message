@@ -80,3 +80,7 @@ gradle-app.setting
 settings.gradle
 .idea/misc.xml
 .idea/vcs.xml
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/modules.xml
+.idea/modules
