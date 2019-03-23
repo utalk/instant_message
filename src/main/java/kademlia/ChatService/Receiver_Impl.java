@@ -32,6 +32,8 @@ public class Receiver_Impl implements Receiver {
             // 调用群聊
         }
 
+        receiveUIMessage(m);
+
         // 调用界面方法
     }
 }

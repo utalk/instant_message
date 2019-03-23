@@ -30,7 +30,7 @@ public class InitializerImpl implements Initializer {
         //TODO 在init方法中，需要设置当前好友，添加所有的好友，并完成Kademlia的初始化工作等，体现在返回值
 
         MessageWrapper wrapper = new MessageWrapper();
-        wrapper.setCurrentUser(KEYS[0]);
+        wrapper.setCurrentUser(KEYS[ID]);
         List<String> friends = new ArrayList<>();
 
 
