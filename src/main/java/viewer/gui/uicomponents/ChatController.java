@@ -110,6 +110,7 @@ public class ChatController implements UIMessageReceiver {
 
     @Override
     public void receiveUIMessage(ChatMessage chatMessage) {
+        uiContext.setUiMessageReceiver(this);
         writeMessageData(chatMessage, OperationType.RECEIVE);
         addMessageToScreenIfIsAReply(chatMessage);
     }

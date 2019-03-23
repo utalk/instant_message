@@ -1,6 +1,7 @@
 package kademlia.ChatService;
 
 import com.google.gson.Gson;
+import javafx.application.Platform;
 import model.ChatMessage;
 import model.LogMessage;
 import viewer.context.UIContext;
@@ -10,11 +11,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Receiver_Impl implements Receiver {
-    private UIMessageReceiver uiMessageReceiver = UIContext.getInstance().getUiMessageReceiver();
-
     //这是界面方法
     private void receiveUIMessage(ChatMessage message) {
-        uiMessageReceiver.receiveUIMessage(message);
+        Platform.runLater(() -> {
+            //更新JavaFX的主线程的代码放在此处
+            UIMessageReceiver uiMessageReceiver = UIContext.getInstance().getUiMessageReceiver();
+            if (uiMessageReceiver != null) {
+                uiMessageReceiver.receiveUIMessage(message);
+            }
+        });
     }
 
     @Override
