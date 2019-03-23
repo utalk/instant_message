@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.svg.SVGGlyphLoader;
 import viewer.entity.Message;
-import viewer.global.GlobalValue;
+import viewer.context.UIContext;
 import viewer.gui.main.MainController;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.container.DefaultFlowContainer;
@@ -25,7 +25,7 @@ import java.util.Date;
 public class MainDemo extends Application {
 
     @FXMLViewFlowContext
-    private ViewFlowContext flowContext;
+    private ViewFlowContext flowContext = new ViewFlowContext();;
 
     public static void main(String[] args) {
         launch(args);
@@ -45,7 +45,6 @@ public class MainDemo extends Application {
 
         Flow flow = new Flow(MainController.class);
         DefaultFlowContainer container = new DefaultFlowContainer();
-        flowContext = new ViewFlowContext();
         flowContext.register("Stage", stage);
         flow.createHandler(flowContext).start(container);
 
@@ -75,7 +74,7 @@ public class MainDemo extends Application {
     }
 
     private void initStub() {
-        GlobalValue.toUser = "ABCDEF";
+        UIContext.toUser = "ABCDEF";
         Message[] messages = new Message[20];
         for(int i = 0;i < 20;i++){
             Message message = new Message();
@@ -86,8 +85,8 @@ public class MainDemo extends Application {
             message.setSendTime(new Timestamp(new Date().getTime()));
             messages[i] = message;
         }
-        GlobalValue.pairs = new Pair[1];
-        GlobalValue.pairs[0] = new Pair<>("ABCDEF",messages);
+        UIContext.pairs = new Pair[1];
+        UIContext.pairs[0] = new Pair<>("ABCDEF",messages);
     }
 
 }

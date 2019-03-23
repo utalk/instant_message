@@ -12,15 +12,15 @@ public class ChatMessage {
 
     private long time;
 
-    private boolean isGroup;
+    private boolean group;
 
-    public ChatMessage(String messageID, String from, String to, String content, long time, boolean isGroup) {
+    public ChatMessage(String messageID, String from, String to, String content, long time, boolean group) {
         this.messageID = messageID;
         this.from = from;
         this.to = to;
         this.content = content;
         this.time = time;
-        this.isGroup = isGroup;
+        this.group = group;
     }
 
     public String getMessageID() {
@@ -56,11 +56,11 @@ public class ChatMessage {
     }
 
     public boolean isGroup() {
-        return isGroup;
+        return group;
     }
 
     public void setGroup(boolean group) {
-        isGroup = group;
+        this.group = group;
     }
 
     public long getTime() {

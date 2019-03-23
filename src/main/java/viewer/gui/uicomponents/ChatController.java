@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextField;
 import viewer.entity.Message;
-import viewer.global.GlobalValue;
+import viewer.context.UIContext;
 import io.datafx.controller.ViewController;
 import io.datafx.controller.flow.action.ActionMethod;
 import io.datafx.controller.flow.action.ActionTrigger;
@@ -40,8 +40,8 @@ public class ChatController {
     }
 
     private void render() {
-        for (Pair pair : GlobalValue.pairs) {
-            if (pair.getKey().equals(GlobalValue.toUser)) {
+        for (Pair pair : UIContext.pairs) {
+            if (pair.getKey().equals(UIContext.toUser)) {
                 for (Message message : (Message[]) pair.getValue()) {
                     Label send = new Label(message.getFrom() + " (" + message.getSendTime() + ")");
                     Label messageText = new Label(message.getContent());
