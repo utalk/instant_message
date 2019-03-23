@@ -40,9 +40,9 @@ public class ChatController implements UIMessageReceiver {
     }
 
     private void handleSend() {
-        System.out.println("clicked");
         ChatMessage chatMessage = new ChatMessage(uiContext.getCurrentUser(), uiContext.getToUser(), textArea.getText(), uiContext.isGroupTalking());
         sendMessage(chatMessage);
+        textArea.setText("");
     }
 
     private void render() {
