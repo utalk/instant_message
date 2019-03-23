@@ -36,7 +36,7 @@
         <!--styleClass="custom-jfx-button-raised"/>-->
         <!--</HBox>-->
         <!--</VBox>-->
-        <VBox>
+        <VBox id="outer">
             <children>
                 <JFXScrollPane id="scrollPane" prefHeight="431.0" prefWidth="613.0" style="-fx-background-color: gray;">
                     <children>

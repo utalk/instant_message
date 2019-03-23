@@ -1,8 +1,12 @@
 package viewer.gui.uicomponents;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
+import io.datafx.controller.ViewNode;
 import javafx.geometry.Pos;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import kademlia.ChatService.Sender;
 import model.ChatMessage;
 import viewer.context.UIContext;
@@ -23,12 +27,26 @@ import java.util.Map;
 
 @ViewController(value = "/fxml/ui/Chat.fxml", title = "Material Design Example")
 public class ChatController implements UIMessageReceiver {
-    @FXML
-    private JFXTextArea textArea;
-    @FXML
-    private JFXButton button;
+    @ViewNode("outer")
+    private VBox outer;
+
+    @ViewNode("scrollPane")
+    private JFXScrollPane scrollPane;
     @FXML
     private VBox vBox;
+
+
+    @ViewNode("textAreaContainer")
+    private AnchorPane textAreaContainer;
+    @FXML
+    private JFXTextArea textArea;
+
+
+    @ViewNode("footer")
+    private HBox footer;
+    @FXML
+    private JFXButton button;
+
 
     private UIContext uiContext = UIContext.getInstance();
 
@@ -36,6 +54,10 @@ public class ChatController implements UIMessageReceiver {
     private void construct() {
         button.setOnAction(e -> handleSend());
         uiContext.setUiMessageReceiver(this);
+        scrollPane.prefHeightProperty().bind(outer.heightProperty().multiply(4.0 / 7));
+        textAreaContainer.prefHeightProperty().bind(outer.heightProperty().multiply(2.0 / 7));
+        footer.prefHeightProperty().bind(outer.heightProperty().multiply(1.0 / 7));
+
         render();
     }
 
