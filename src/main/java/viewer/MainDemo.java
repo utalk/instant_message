@@ -37,13 +37,15 @@ public class MainDemo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        MessageWrapper messageWrapper = initializer.init();
-        if (messageWrapper == null || messageWrapper.getSender() == null || messageWrapper.getCurrentUser() == null || messageWrapper.getFriends() == null) {
-            throw new MessageNotSetException();
-        }
-        uiContext.setFriendList(messageWrapper.getFriends());
-        uiContext.setCurrentUser(messageWrapper.getCurrentUser());
-        uiContext.setSender(messageWrapper.getSender());
+//        MessageWrapper messageWrapper = initializer.init();
+//        if (messageWrapper == null || messageWrapper.getSender() == null || messageWrapper.getCurrentUser() == null || messageWrapper.getFriends() == null) {
+//            throw new MessageNotSetException();
+//        }
+//        uiContext.setFriendList(messageWrapper.getFriends());
+//        uiContext.setCurrentUser(messageWrapper.getCurrentUser());
+//        uiContext.setSender(messageWrapper.getSender());
+
+        //下面是载入图标，没用到可以去掉
         new Thread(() -> {
             try {
                 SVGGlyphLoader.loadGlyphsFont(MainDemo.class.getResourceAsStream("/fonts/icomoon.svg"),
@@ -62,7 +64,7 @@ public class MainDemo extends Application {
         decorator.setCustomMaximize(true);
         decorator.setGraphic(new SVGGlyph(""));
 
-        stage.setTitle("JFoenix Demo");
+        stage.setTitle("Instant Message Demo");
 
         double width = 800;
         double height = 600;

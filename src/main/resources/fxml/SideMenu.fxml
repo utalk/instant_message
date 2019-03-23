@@ -9,8 +9,8 @@
         <String fx:value="side-menu"/>
     </styleClass>
     <JFXListView fx:id="sideList">
-        <Label fx:id="chatLink">Buttons</Label>
-        <Label fx:id="chatLink2">Buttons</Label>
+        <!--<Label fx:id="chatLink">Buttons</Label>-->
+        <!--<Label fx:id="chatLink2">Buttons</Label>-->
         <!--<Label fx:id="checkbox">Check Box</Label>-->
         <!--<Label fx:id="combobox">Combo Box</Label>-->
         <!--<Label fx:id="dialogs">Dialogs &amp; Alert</Label>-->

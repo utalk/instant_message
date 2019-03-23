@@ -8,57 +8,57 @@
 <?import javafx.scene.control.ScrollPane?>
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-       <!--<VBox maxWidth="400" maxHeight="400" spacing="10">-->
-           <!--<Label styleClass="title-label">Flat Buttons</Label>-->
-           <!--<HBox spacing="20" style="-fx-padding: 0 0 0 50;">-->
-               <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="FLAT" text="BUTTON"-->
-                          <!--style="-fx-font-size:14px;"/>-->
-               <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="FLAT" text="COLORED"-->
-                          <!--style="-fx-text-fill:#5264AE;-fx-font-size:14px;"/>-->
-               <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="FLAT" text="DISABLED"-->
-                          <!--style="-fx-font-size:14px;" disable="true"/>-->
-           <!--</HBox>-->
-   
-           <!--<Label styleClass="title-label">Raised Buttons</Label>-->
-           <!--<HBox spacing="40" style="-fx-padding: 0 0 0 50;">-->
-               <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="RAISED" text="BUTTON"-->
-                          <!--style="-fx-font-size:14px;-fx-background-color:WHITE;"/>-->
-               <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="RAISED" text="COLORED"-->
-                          <!--style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"/>-->
-               <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="RAISED" text="DISABLED"-->
-                          <!--style="-fx-background-color:WHITE;-fx-font-size:14px;" disable="true"/>-->
-           <!--</HBox>-->
-   
-           <!--<Label styleClass="title-label">Styling Options</Label>-->
-           <!--<HBox spacing="20" style="-fx-padding: 0 0 0 50;">-->
-               <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="RAISED" text="CUSTOM RIPPLER"-->
-                          <!--styleClass="custom-jfx-button-raised"/>-->
-           <!--</HBox>-->
-       <!--</VBox>-->
-       <VBox>
-          <children>
-              <JFXScrollPane id="scrollPane" style="-fx-background-color: gray;">
-               <children>
-                  <VBox id="vBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgray;" />
-               </children>
-            </JFXScrollPane>
-            <AnchorPane>
-               <children>
-                  <JFXTextArea fx:id="textArea" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-            <HBox alignment="CENTER_RIGHT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                    <JFXButton id="submit" buttonType="RAISED" layoutX="15.0" layoutY="50.0" prefHeight="40" prefWidth="100" style="-fx-background-color:#5264AE;-fx-font-size:14px;" text="发送">
+    <children>
+        <!--<VBox maxWidth="400" maxHeight="400" spacing="10">-->
+        <!--<Label styleClass="title-label">Flat Buttons</Label>-->
+        <!--<HBox spacing="20" style="-fx-padding: 0 0 0 50;">-->
+        <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="FLAT" text="BUTTON"-->
+        <!--style="-fx-font-size:14px;"/>-->
+        <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="FLAT" text="COLORED"-->
+        <!--style="-fx-text-fill:#5264AE;-fx-font-size:14px;"/>-->
+        <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="FLAT" text="DISABLED"-->
+        <!--style="-fx-font-size:14px;" disable="true"/>-->
+        <!--</HBox>-->
 
-        </JFXButton>
-               </children>
-               <padding>
-                  <Insets right="20.0" />
-               </padding>
-            </HBox>
-          </children>
-       </VBox>
-   </children>
+        <!--<Label styleClass="title-label">Raised Buttons</Label>-->
+        <!--<HBox spacing="40" style="-fx-padding: 0 0 0 50;">-->
+        <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="RAISED" text="BUTTON"-->
+        <!--style="-fx-font-size:14px;-fx-background-color:WHITE;"/>-->
+        <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="RAISED" text="COLORED"-->
+        <!--style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"/>-->
+        <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="RAISED" text="DISABLED"-->
+        <!--style="-fx-background-color:WHITE;-fx-font-size:14px;" disable="true"/>-->
+        <!--</HBox>-->
+
+        <!--<Label styleClass="title-label">Styling Options</Label>-->
+        <!--<HBox spacing="20" style="-fx-padding: 0 0 0 50;">-->
+        <!--<JFXButton prefWidth="100" prefHeight="40" buttonType="RAISED" text="CUSTOM RIPPLER"-->
+        <!--styleClass="custom-jfx-button-raised"/>-->
+        <!--</HBox>-->
+        <!--</VBox>-->
+        <VBox>
+            <children>
+                <JFXScrollPane id="scrollPane" prefHeight="431.0" prefWidth="613.0" style="-fx-background-color: gray;">
+                    <children>
+                        <VBox id="vBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgray;" />
+                    </children>
+                </JFXScrollPane>
+                <AnchorPane id="textAreaContainer">
+                    <children>
+                        <JFXTextArea id="textArea" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <HBox id="footer" alignment="CENTER_RIGHT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <JFXButton id="button" buttonType="RAISED" layoutX="15.0" layoutY="50.0" prefHeight="40" prefWidth="100" style="-fx-background-color:#5264AE;-fx-font-size:14px;" text="发送">
+
+                        </JFXButton>
+                    </children>
+                    <padding>
+                        <Insets right="20.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
 </StackPane>

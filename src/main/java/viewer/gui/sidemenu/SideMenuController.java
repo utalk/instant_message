@@ -1,6 +1,8 @@
 package viewer.gui.sidemenu;
 
 import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
+import viewer.context.UIContext;
 import viewer.gui.uicomponents.*;
 import io.datafx.controller.ViewController;
 import io.datafx.controller.flow.Flow;
@@ -15,26 +17,26 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
-@ViewController(value = "/fxml/SideMenu.fxml", title = "Material Design Example")
+@ViewController(value = "/fxml/SideMenu.fxml")
 public class SideMenuController {
 
     @FXMLViewFlowContext
     private ViewFlowContext context;
     @FXML
-    private Label chatLink;
-    @FXML
-    private Label chatLink2;
-    @FXML
     private JFXListView<Label> sideList;
+
+    private UIContext uiContext = UIContext.getInstance();
 
     /**
      * init fxml when loaded.
      */
     @PostConstruct
     public void init() {
-        chatLink.setOnMouseClicked(e -> System.out.println("One clicked"));
         Objects.requireNonNull(context, "context");
         FlowHandler contentFlowHandler = (FlowHandler) context.getRegisteredObject("ContentFlowHandler");
         sideList.propagateMouseEventsToParent();
@@ -48,12 +50,31 @@ public class SideMenuController {
             }
         })).start());
         Flow contentFlow = (Flow) context.getRegisteredObject("ContentFlow");
-        bindNodeToController(chatLink, ChatController.class, contentFlow, contentFlowHandler);
-        bindNodeToController(chatLink2, ChatController.class, contentFlow, contentFlowHandler);
+        renderSideList(contentFlow);
     }
 
-    private void bindNodeToController(Node node, Class<?> controllerClass, Flow flow, FlowHandler flowHandler) {
-        flow.withGlobalLink(node.getId(), controllerClass);
+    private void renderSideList(Flow flow) {
+        ArrayList<Label> labels = new ArrayList<>();
+        String labelStr = "群聊1";
+        Label label = new Label(labelStr);
+        label.setId(labelStr);
+        label.setOnMouseClicked(e -> uiContext.setGroupTalking(true));
+        flow.withGlobalLink(label.getId(), ChatController.class);
+        labels.add(label);
+        List<String> friendList = uiContext.getFriendList();
+        if (friendList != null) {
+            for (String nodeId : friendList) {
+                Label labelTemp = new Label(nodeId);
+                labelTemp.setId(nodeId);
+                labelTemp.setOnMouseClicked(e -> {
+                    uiContext.setToUser(nodeId);
+                    uiContext.setGroupTalking(false);
+                });
+                flow.withGlobalLink(label.getId(), ChatController.class);
+                labels.add(labelTemp);
+            }
+        }
+        sideList.setItems(FXCollections.observableArrayList(labels));
     }
 
 }

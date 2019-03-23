@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="root" alignment="CENTER" prefHeight="500.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label style="-fx-text-fill: gray; -fx-font-size: 30;" text="请点击左侧汉堡按钮，开始聊天">
+         <font>
+            <Font />
+         </font></Label>
+   </children>
+</HBox>

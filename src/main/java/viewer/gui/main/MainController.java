@@ -13,6 +13,7 @@ import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import viewer.gui.uicomponents.FirstPageController;
 
 import javax.annotation.PostConstruct;
 
@@ -78,7 +79,7 @@ public final class MainController {
         // create the inner flow and content
         context = new ViewFlowContext();
         // set the default controller
-        Flow innerFlow = new Flow(ChatController.class);
+        Flow innerFlow = new Flow(FirstPageController.class);
 
         final FlowHandler flowHandler = innerFlow.createHandler(context);
         context.register("ContentFlowHandler", flowHandler);

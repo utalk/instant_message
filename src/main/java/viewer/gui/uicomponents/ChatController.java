@@ -1,12 +1,9 @@
 package viewer.gui.uicomponents;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import javafx.geometry.Pos;
 import kademlia.ChatService.Sender;
-import kademlia.protocol.Message;
 import model.ChatMessage;
 import viewer.context.UIContext;
 import io.datafx.controller.ViewController;
@@ -29,7 +26,6 @@ public class ChatController implements UIMessageReceiver {
     @FXML
     private JFXTextArea textArea;
     @FXML
-    @ActionTrigger("sendMessage")
     private JFXButton button;
     @FXML
     private VBox vBox;
@@ -38,12 +34,13 @@ public class ChatController implements UIMessageReceiver {
 
     @PostConstruct
     private void construct() {
+        button.setOnAction(e -> handleSend());
         uiContext.setUiMessageReceiver(this);
         render();
     }
 
-    @ActionMethod("sendMessage")
     private void handleSend() {
+        System.out.println("clicked");
         ChatMessage chatMessage = new ChatMessage(uiContext.getCurrentUser(), uiContext.getToUser(), textArea.getText(), uiContext.isGroupTalking());
         sendMessage(chatMessage);
     }
@@ -97,11 +94,11 @@ public class ChatController implements UIMessageReceiver {
 
     private void sendMessage(ChatMessage chatMessage) {
         Sender sender = uiContext.getSender();
-        if (sender != null) {
-            sender.send(chatMessage);
-            writeMessageData(chatMessage, OperationType.SEND);
-            addMessageToScreen(chatMessage);
-        }
+//        if (sender != null) {
+//            sender.send(chatMessage);
+        writeMessageData(chatMessage, OperationType.SEND);
+        addMessageToScreen(chatMessage);
+//        }
     }
 
     private void writeMessageData(ChatMessage chatMessage, OperationType operationType) {

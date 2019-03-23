@@ -13,7 +13,7 @@ import java.util.Map;
 @Data
 public class UIContext {
     private String toUser;
-    private String currentUser;
+    private String currentUser = "undefined";
     private boolean groupTalking;
     private Sender sender;
 
