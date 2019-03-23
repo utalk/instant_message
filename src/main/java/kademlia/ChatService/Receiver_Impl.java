@@ -31,6 +31,7 @@ public class Receiver_Impl implements Receiver {
             //TODO
             // 调用群聊
         }
+
         // 调用界面方法
     }
 }

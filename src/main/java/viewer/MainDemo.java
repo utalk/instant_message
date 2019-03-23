@@ -21,6 +21,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class MainDemo extends Application {
 
@@ -31,13 +32,15 @@ public class MainDemo extends Application {
 
     private UIContext uiContext = UIContext.getInstance();
 
+    private static int init_id = 1;
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        MessageWrapper messageWrapper = initializer.init();
+        MessageWrapper messageWrapper = initializer.init(init_id);
         try {
             if (messageWrapper == null || messageWrapper.getSender() == null || messageWrapper.getCurrentUser() == null || messageWrapper.getFriends() == null) {
                 throw new MessageNotSetException();
