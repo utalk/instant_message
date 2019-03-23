@@ -32,7 +32,7 @@ public class MainDemo extends Application {
 
     private UIContext uiContext = UIContext.getInstance();
 
-    private static int init_id = 1;
+    private static int init_id = 0;
 
     public static void main(String[] args) {
         launch(args);

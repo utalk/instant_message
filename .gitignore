@@ -84,3 +84,4 @@ settings.gradle
 .idea/encodings.xml
 .idea/modules.xml
 .idea/modules
+.idea/instant_message.iml

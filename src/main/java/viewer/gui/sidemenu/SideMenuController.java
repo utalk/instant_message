@@ -39,6 +39,8 @@ public class SideMenuController {
     public void init() {
         Objects.requireNonNull(context, "context");
         FlowHandler contentFlowHandler = (FlowHandler) context.getRegisteredObject("ContentFlowHandler");
+        Flow contentFlow = (Flow) context.getRegisteredObject("ContentFlow");
+        renderSideList(contentFlow);
         sideList.propagateMouseEventsToParent();
         sideList.getSelectionModel().selectedItemProperty().addListener((o, oldVal, newVal) -> new Thread(() -> Platform.runLater(() -> {
             if (newVal != null) {
@@ -49,8 +51,6 @@ public class SideMenuController {
                 }
             }
         })).start());
-        Flow contentFlow = (Flow) context.getRegisteredObject("ContentFlow");
-        renderSideList(contentFlow);
     }
 
     private void renderSideList(Flow flow) {
@@ -58,19 +58,19 @@ public class SideMenuController {
         String labelStr = "群聊1";
         Label label = new Label(labelStr);
         label.setId(labelStr);
+        flow.withGlobalLink(labelStr, ChatController.class);
         label.setOnMouseClicked(e -> uiContext.setGroupTalking(true));
-        flow.withGlobalLink(label.getId(), ChatController.class);
         labels.add(label);
         List<String> friendList = uiContext.getFriendList();
         if (friendList != null) {
             for (String nodeId : friendList) {
                 Label labelTemp = new Label(nodeId);
                 labelTemp.setId(nodeId);
+                flow.withGlobalLink(nodeId, ChatController.class);
                 labelTemp.setOnMouseClicked(e -> {
                     uiContext.setToUser(nodeId);
                     uiContext.setGroupTalking(false);
                 });
-                flow.withGlobalLink(label.getId(), ChatController.class);
                 labels.add(labelTemp);
             }
         }
