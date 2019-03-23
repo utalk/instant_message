@@ -45,7 +45,7 @@
             </JFXScrollPane>
             <AnchorPane>
                <children>
-                  <JFXTextArea AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <JFXTextArea fx:id="textArea" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
             <HBox alignment="CENTER_RIGHT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

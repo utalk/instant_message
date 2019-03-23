@@ -14,12 +14,12 @@ public class ChatMessage {
 
     private boolean group;
 
-    public ChatMessage(String messageID, String from, String to, String content, long time, boolean group) {
-        this.messageID = messageID;
+    public ChatMessage(String from, String to, String content, boolean group) {
+        this.time = System.currentTimeMillis();
+        this.messageID = from + time;
         this.from = from;
         this.to = to;
         this.content = content;
-        this.time = time;
         this.group = group;
     }
 

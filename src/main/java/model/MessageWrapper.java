@@ -1,11 +1,13 @@
 package model;
 
-import kademlia.ChatService.Receiver;
 import kademlia.ChatService.Sender;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class MessageWrapper {
-    private Receiver receiver;
     private Sender sender;
+    private List<String> friends;
+    private String currentUser;
 }

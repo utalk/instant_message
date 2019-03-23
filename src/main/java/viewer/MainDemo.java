@@ -3,7 +3,10 @@ package viewer;
 import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.svg.SVGGlyphLoader;
-import viewer.entity.Message;
+import connector.Initializer;
+import connector.InitializerImpl;
+import kademlia.exception.MessageNotSetException;
+import model.MessageWrapper;
 import viewer.context.UIContext;
 import viewer.gui.main.MainController;
 import io.datafx.controller.flow.Flow;
@@ -16,16 +19,17 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
 
 public class MainDemo extends Application {
 
     @FXMLViewFlowContext
-    private ViewFlowContext flowContext = new ViewFlowContext();;
+    private ViewFlowContext flowContext = new ViewFlowContext();
+
+    private Initializer initializer = new InitializerImpl();
+
+    private UIContext uiContext = UIContext.getInstance();
 
     public static void main(String[] args) {
         launch(args);
@@ -33,11 +37,17 @@ public class MainDemo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        initStub();
+        MessageWrapper messageWrapper = initializer.init();
+        if (messageWrapper == null || messageWrapper.getSender() == null || messageWrapper.getCurrentUser() == null || messageWrapper.getFriends() == null) {
+            throw new MessageNotSetException();
+        }
+        uiContext.setFriendList(messageWrapper.getFriends());
+        uiContext.setCurrentUser(messageWrapper.getCurrentUser());
+        uiContext.setSender(messageWrapper.getSender());
         new Thread(() -> {
             try {
                 SVGGlyphLoader.loadGlyphsFont(MainDemo.class.getResourceAsStream("/fonts/icomoon.svg"),
-                    "icomoon.svg");
+                        "icomoon.svg");
             } catch (IOException ioExc) {
                 ioExc.printStackTrace();
             }
@@ -51,7 +61,7 @@ public class MainDemo extends Application {
         JFXDecorator decorator = new JFXDecorator(stage, container.getView());
         decorator.setCustomMaximize(true);
         decorator.setGraphic(new SVGGlyph(""));
-        
+
         stage.setTitle("JFoenix Demo");
 
         double width = 800;
@@ -60,33 +70,17 @@ public class MainDemo extends Application {
             Rectangle2D bounds = Screen.getScreens().get(0).getBounds();
             width = bounds.getWidth() / 2.5;
             height = bounds.getHeight() / 1.35;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         Scene scene = new Scene(decorator, width, height);
         final ObservableList<String> stylesheets = scene.getStylesheets();
         stylesheets.addAll(MainDemo.class.getResource("/css/jfoenix-fonts.css").toExternalForm(),
-                           MainDemo.class.getResource("/css/jfoenix-design.css").toExternalForm(),
-                           MainDemo.class.getResource("/css/jfoenix-main-demo.css").toExternalForm());
+                MainDemo.class.getResource("/css/jfoenix-design.css").toExternalForm(),
+                MainDemo.class.getResource("/css/jfoenix-main-demo.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
-    }
-
-    private void initStub() {
-        UIContext.toUser = "ABCDEF";
-        Message[] messages = new Message[20];
-        for(int i = 0;i < 20;i++){
-            Message message = new Message();
-            message.setFrom("ABCDEF");
-            message.setTo("c");
-            message.setContent("message:"+i);
-            message.setMessageId(i);
-            message.setSendTime(new Timestamp(new Date().getTime()));
-            messages[i] = message;
-        }
-        UIContext.pairs = new Pair[1];
-        UIContext.pairs[0] = new Pair<>("ABCDEF",messages);
     }
 
 }

@@ -1,28 +1,30 @@
 package viewer.context;
 
-import javafx.util.Pair;
+import kademlia.ChatService.Sender;
+import lombok.Data;
 import model.ChatMessage;
+import viewer.gui.uicomponents.UIMessageReceiver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+@Data
 public class UIContext {
-    public static String toUser;
-    public static String currentUser;
-    public static boolean groupTalking;
+    private String toUser;
+    private String currentUser;
+    private boolean groupTalking;
+    private Sender sender;
 
-    //userPort,message
-    public static Pair[] pairs;
+    private Map<String, List<ChatMessage>> p2pTalkingMessages = new HashMap<>();
+    private List<ChatMessage> groupTalkingMessages = new ArrayList<>();
+    private List<String> friendList;
+    private UIMessageReceiver uiMessageReceiver;
 
-    public static HashMap<String, ChatMessage> p2pTalkingMessages;
-    public static ArrayList<ChatMessage> groupTalkingMessages;
-    public static ArrayList<String> friendList;
+    private static UIContext uiContext = new UIContext();
 
-    public static void addFriend(String nodeId) {
-        friendList.add(nodeId);
-    }
-
-    public static void setCurrentUser(String nodeId) {
-        currentUser = nodeId;
+    public static UIContext getInstance() {
+        return uiContext;
     }
 }
