@@ -116,11 +116,11 @@ public class ChatController implements UIMessageReceiver {
 
     private void sendMessage(ChatMessage chatMessage) {
         Sender sender = uiContext.getSender();
-//        if (sender != null) {
-//            sender.send(chatMessage);
-        writeMessageData(chatMessage, OperationType.SEND);
-        addMessageToScreen(chatMessage);
-//        }
+        if (sender != null) {
+            sender.send(chatMessage);
+            writeMessageData(chatMessage, OperationType.SEND);
+            addMessageToScreen(chatMessage);
+        }
     }
 
     private void writeMessageData(ChatMessage chatMessage, OperationType operationType) {
