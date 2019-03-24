@@ -38,31 +38,27 @@
         <!--</HBox>-->
         <!--</VBox>-->
         <VBox id="outer">
-            <children>
-                <JFXScrollPane id="scrollPane" prefHeight="431.0" prefWidth="613.0" style="-fx-background-color: gray;">
-                    <children>
-                        <VBox id="vBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgray;">
-                     <children>
-                        <Label fx:id="title" style="-fx-text-fill: gray; -fx-font-size: 22;" text="title" />
-                     </children></VBox>
-                    </children>
-                </JFXScrollPane>
-                <AnchorPane id="textAreaContainer">
-                    <children>
-                        <JFXTextArea id="textArea" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                    </children>
-                </AnchorPane>
-                <HBox id="footer" alignment="CENTER_RIGHT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <JFXButton id="button" buttonType="RAISED" layoutX="15.0" layoutY="50.0" prefHeight="40" prefWidth="100" style="-fx-background-color:#5264AE;-fx-font-size:14px;" text="发送">
-
-                        </JFXButton>
-                    </children>
-                    <padding>
-                        <Insets right="20.0" />
-                    </padding>
-                </HBox>
-            </children>
+            <JFXScrollPane id="scrollPane" maxHeight="-Infinity" prefHeight="431.0" prefWidth="613.0"
+                           style="-fx-background-color: gray;">
+                <children>
+                    <VBox id="vBox" alignment="TOP_CENTER" style="-fx-background-color: lightgray;">
+                        <Label fx:id="title" style="-fx-text-fill: gray; -fx-font-size: 22;" text="title"/>
+                    </VBox>
+                </children>
+            </JFXScrollPane>
+            <AnchorPane id="textAreaContainer">
+                <JFXTextArea id="textArea" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+            </AnchorPane>
+            <HBox id="footer" alignment="CENTER_RIGHT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <padding>
+                    <Insets right="20.0"/>
+                </padding>
+                <JFXButton id="button" buttonType="RAISED" layoutX="15.0" layoutY="50.0" prefHeight="40"
+                           prefWidth="100" style="-fx-background-color:#5264AE;-fx-font-size:14px;" text="发送">
+                </JFXButton>
+            </HBox>
         </VBox>
     </children>
 </StackPane>

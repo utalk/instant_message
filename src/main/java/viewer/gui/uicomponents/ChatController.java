@@ -124,7 +124,7 @@ public class ChatController implements UIMessageReceiver {
             messageContainer.setAlignment(Pos.TOP_RIGHT);
         }
         messageContainer.getChildren().addAll(message, messageText);
-        vBox.getChildren().add(messageContainer);
+        vBox.getChildren().addAll(messageContainer);
     }
 
     private void addMessageToScreenIfIsAReply(ChatMessage chatMessage) {
