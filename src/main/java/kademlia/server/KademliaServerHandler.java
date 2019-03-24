@@ -57,7 +57,9 @@ public class KademliaServerHandler {
         }
         else if(message.getType() == MessageType.FIND_VALUE) {
             FindValue findValue = (FindValue) message;
-
+//         client.sendFindNode(bootstrapNode, localNode.getId(), nodes -> {
+//             nodes.stream().forEach(node -> {routingTable.addNode(node);});
+//         });
             // query local store
             if(localStorage.contains(findValue.getKey())) {
                 respond(codec.encode(new ValueReply(message.getSeqId(),localNode, findValue.getKey(), localStorage.get(findValue.getKey()).getContent())), packet.getSocketAddress());
