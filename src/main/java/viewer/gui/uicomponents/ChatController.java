@@ -52,6 +52,9 @@ public class ChatController implements UIMessageReceiver {
 
     private UIContext uiContext = UIContext.getInstance();
 
+    private boolean press_ctrl = false;
+    private boolean press_enter = false;
+
     @PostConstruct
     private void construct() {
         UsernameGetter usernameGetter = uiContext.getUsernameGetter();
@@ -63,6 +66,25 @@ public class ChatController implements UIMessageReceiver {
             title.setText("您(" + from + ")与Ta(" + to + ")正在聊天");
         }
         button.setOnAction(e -> handleSend());
+        textArea.setOnKeyPressed(e -> {
+            switch (e.getCode()) {
+                case CONTROL:
+                    press_ctrl = true;
+                    break;
+                case ENTER:
+                    press_enter = true;
+                    break;
+                default:
+                    break;
+            }
+            if (press_ctrl && press_enter) {
+                handleSend();
+            }
+        });
+        textArea.setOnKeyReleased(e -> {
+            press_enter = false;
+            press_ctrl = false;
+        });
         uiContext.setUiMessageReceiver(this);
         scrollPane.prefHeightProperty().bind(outer.heightProperty().multiply(4.0 / 7));
         textAreaContainer.prefHeightProperty().bind(outer.heightProperty().multiply(2.0 / 7));
