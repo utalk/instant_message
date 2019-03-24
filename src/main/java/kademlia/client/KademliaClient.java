@@ -38,7 +38,7 @@ public class KademliaClient {
 
     private Codec codec = new Codec();
 
-    private final Duration timeout = Duration.ofSeconds(1);
+    private final Duration timeout = Duration.ofMillis(50);
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -83,7 +83,11 @@ public class KademliaClient {
                         try {
                             future.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
                         } catch (TimeoutException e) {
-                            future.cancel(false);
+                            try {
+                                future.cancel(true);
+                            }catch (InterruptedException e){
+
+                            }
                         }
                     } catch (UnsupportedEncodingException e) {
                         LOGGER.error("unsupported encoding for encoding msg", e);
