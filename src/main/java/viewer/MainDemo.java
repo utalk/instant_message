@@ -91,5 +91,4 @@ public class MainDemo extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 }

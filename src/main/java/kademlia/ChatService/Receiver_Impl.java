@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Receiver_Impl implements Receiver {
+    GroupSender sender = new GroupSender_Impl();
     //这是界面方法
     private void receiveUIMessage(ChatMessage message) {
         Platform.runLater(() -> {
@@ -33,12 +34,9 @@ public class Receiver_Impl implements Receiver {
                 m.getTime(), "receive")));
 //        HttpUtil.sendGet("", parameters);
         if (m.isGroup()) {
-            //TODO
-            // 调用群聊
+            sender.send(m);
         }
-
         receiveUIMessage(m);
-
         // 调用界面方法
     }
 }
