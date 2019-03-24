@@ -82,12 +82,8 @@ public class KademliaClient {
 
                         try {
                             future.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
-                        } catch (TimeoutException e) {
-                            try {
-                                future.cancel(true);
-                            }catch (InterruptedException e){
-
-                            }
+                        } catch (Exception e) {
+                            future.cancel(true);
                         }
                     } catch (UnsupportedEncodingException e) {
                         LOGGER.error("unsupported encoding for encoding msg", e);

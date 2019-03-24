@@ -1,5 +1,6 @@
 package kademlia.ChatService;
 
+import connector.InitializerImpl;
 import model.ChatMessage;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class GroupSender_Impl implements GroupSender {
 
     private Set<String> idHasBeenSent = new HashSet<>();
 
-    private Sender sender;
+    private Sender sender = new Sender_Impl();
 
     public GroupSender_Impl(String[] idArray) {
         for (int i = 0; i < idArray.length; i++) {
@@ -44,7 +45,8 @@ public class GroupSender_Impl implements GroupSender {
         }
 
         String lastUser = msg.getFrom();//消息来源的用户id
-        String currUser = msg.getTo();//当前用户id，在群聊问题中收到msg的to都是当前用户
+        int index = InitializerImpl.current_ID;//当前用户id，在群聊问题中收到msg的to都是当前用户
+        String currUser = this.groupMatrix[index/3][index%3];
         List<String> userIdToSent = this.findUserIdToSent(lastUser , currUser);//查询到接下来应该发送的用户
 
         userIdToSent.forEach(nextId -> {
@@ -52,6 +54,7 @@ public class GroupSender_Impl implements GroupSender {
             //这里原来应该clone一下的，但是偷懒了，如果有bug，都怪我~~~~~~~~~
             msg.setFrom(currUser);
             msg.setTo(nextId);
+            System.out.println("当前发送的消息是" + msg);
             this.sender.send(msg);
         });
 

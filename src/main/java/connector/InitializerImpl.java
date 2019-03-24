@@ -27,12 +27,15 @@ public class InitializerImpl implements Initializer {
             "12406bd3d73524e58229ab489ce106834627a6ae"
     };
 
+    public static int current_ID;
+
     public static GroupSender getGroupSender(){
         return new GroupSender_Impl(KEYS);
     }
 
     @Override
     public MessageWrapper init(int ID) {
+        current_ID  = ID;
         //TODO 在init方法中，需要设置当前好友，添加所有的好友，并完成Kademlia的初始化工作等，体现在返回值
 
         MessageWrapper wrapper = new MessageWrapper();
