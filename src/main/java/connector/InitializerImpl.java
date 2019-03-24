@@ -9,33 +9,26 @@ import kademlia.listener.UDPListener;
 import kademlia.node.Key;
 import kademlia.node.Node;
 import model.MessageWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 public class InitializerImpl implements Initializer {
 
-    private static final String[] KEYS = new String[] {
-            "1e8f1fb41a86a828dc14f0f72a97388ecf22d0b0",
-            "4e876501a5aa9bc0890aa7b2066a51f011a05bee",
-            "6901145bb2f1b655f106b72b1f5351e34d71c96c",
-            "6c7950726634ef8b9f0708879067aa935313cebe",
-            "2e706bd3d73524e58321ab489ce106834627a6ae",
-            "98706bd3d73524e58229ab489ce106834627a6ae",
-            "23406bd3d73524e5a3c9ab489ce106834627a6ae",
-            "56405bd3d73524e58229ab489ce106834627a6ae",
-            "12406bd3d73524e58229ab489ce106834627a6ae"
-    };
+    private static String[] KEYS;
 
     public static int current_ID;
 
-    public static GroupSender getGroupSender(){
+    public static GroupSender getGroupSender() {
         return new GroupSender_Impl(KEYS);
     }
 
     @Override
     public MessageWrapper init(int ID) {
-        current_ID  = ID;
+        KeyContainer keyContainer = KeyContainer.getInstance();
+        KEYS = keyContainer.getKEYS();
+        current_ID = ID;
         //TODO 在init方法中，需要设置当前好友，添加所有的好友，并完成Kademlia的初始化工作等，体现在返回值
 
         MessageWrapper wrapper = new MessageWrapper();
@@ -47,23 +40,23 @@ public class InitializerImpl implements Initializer {
 
         Sender_Impl.kademlia = new Kademlia(
                 Key.build(KEYS[ID]),
-                "udp://127.0.0.1:900"+ Integer.toString(ID)
+                "udp://127.0.0.1:900" + ID
         );
 
-        for(String keys: KEYS){
-            if(!keys.equals(KEYS[ID])){
+        for (String keys : KEYS) {
+            if (!keys.equals(KEYS[ID])) {
                 friends.add(keys);
             }
         }
 
-        if(ID != 0){
+        if (ID != 0) {
             try {
                 Sender_Impl.kademlia.bootstrap(Node.builder().id(Key.build(KEYS[0])).advertisedListener(
                         new UDPListener("udp://127.0.0.1:9000")
                 ).build());
 
 //                sender.send(new ChatMessage(wrapper.getCurrentUser(),KEYS[0],"11sdfsd",false));
-            }catch (TimeoutException e){
+            } catch (TimeoutException e) {
                 e.printStackTrace();
             }
         }
@@ -71,6 +64,7 @@ public class InitializerImpl implements Initializer {
         wrapper.setSender(sender);
         GroupSender group_sender = new GroupSender_Impl(KEYS);
         wrapper.setGroupSender(group_sender);
+        wrapper.setUsernameGetter(keyContainer);
         //TODO 这里还要初始化groupSender并setGroupSender
         return wrapper;
     }

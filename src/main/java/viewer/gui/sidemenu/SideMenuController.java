@@ -1,6 +1,7 @@
 package viewer.gui.sidemenu;
 
 import com.jfoenix.controls.JFXListView;
+import connector.UsernameGetter;
 import javafx.collections.FXCollections;
 import viewer.context.UIContext;
 import viewer.gui.uicomponents.*;
@@ -13,12 +14,10 @@ import io.datafx.controller.flow.context.ViewFlowContext;
 import io.datafx.controller.util.VetoException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +30,8 @@ public class SideMenuController {
     private JFXListView<Label> sideList;
 
     private UIContext uiContext = UIContext.getInstance();
+
+    private String groupStr = "群聊1";
 
     /**
      * init fxml when loaded.
@@ -45,6 +46,12 @@ public class SideMenuController {
         sideList.getSelectionModel().selectedItemProperty().addListener((o, oldVal, newVal) -> new Thread(() -> Platform.runLater(() -> {
             if (newVal != null) {
                 try {
+                    if (newVal.getId().equals(groupStr)) {
+                        uiContext.setGroupTalking(true);
+                    } else {
+                        uiContext.setToUser(newVal.getId());
+                        uiContext.setGroupTalking(false);
+                    }
                     contentFlowHandler.handle(newVal.getId());
                 } catch (VetoException | FlowException exc) {
                     exc.printStackTrace();
@@ -54,23 +61,18 @@ public class SideMenuController {
     }
 
     private void renderSideList(Flow flow) {
+        UsernameGetter usernameGetter = uiContext.getUsernameGetter();
         ArrayList<Label> labels = new ArrayList<>();
-        String labelStr = "群聊1";
-        Label label = new Label(labelStr);
-        label.setId(labelStr);
-        flow.withGlobalLink(labelStr, ChatController.class);
-        label.setOnMouseClicked(e -> uiContext.setGroupTalking(true));
+        Label label = new Label(groupStr);
+        label.setId(groupStr);
+        flow.withGlobalLink(groupStr, ChatController.class);
         labels.add(label);
         List<String> friendList = uiContext.getFriendList();
         if (friendList != null) {
             for (String nodeId : friendList) {
-                Label labelTemp = new Label(nodeId);
+                Label labelTemp = new Label(usernameGetter.getUsername(nodeId));
                 labelTemp.setId(nodeId);
                 flow.withGlobalLink(nodeId, ChatController.class);
-                labelTemp.setOnMouseClicked(e -> {
-                    uiContext.setToUser(nodeId);
-                    uiContext.setGroupTalking(false);
-                });
                 labels.add(labelTemp);
             }
         }

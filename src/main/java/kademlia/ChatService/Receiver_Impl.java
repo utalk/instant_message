@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Receiver_Impl implements Receiver {
-    GroupSender sender = InitializerImpl.getGroupSender();
+    private GroupSender sender = InitializerImpl.getGroupSender();
     //这是界面方法
     private void receiveUIMessage(ChatMessage message) {
         Platform.runLater(() -> {

@@ -21,7 +21,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class MainDemo extends Application {
 
@@ -32,9 +31,12 @@ public class MainDemo extends Application {
 
     private UIContext uiContext = UIContext.getInstance();
 
-    private static int init_id = 1;
+    private static int init_id = 0;
 
     public static void main(String[] args) {
+        if (args.length == 1) {
+            init_id = Integer.parseInt(args[0]);
+        }
         launch(args);
     }
 
@@ -42,13 +44,14 @@ public class MainDemo extends Application {
     public void start(Stage stage) throws Exception {
         MessageWrapper messageWrapper = initializer.init(init_id);
         try {
-            if (messageWrapper == null || messageWrapper.getSender() == null || messageWrapper.getCurrentUser() == null || messageWrapper.getFriends() == null || messageWrapper.getGroupSender() == null) {
+            if (messageWrapper == null || messageWrapper.getSender() == null || messageWrapper.getCurrentUser() == null || messageWrapper.getFriends() == null || messageWrapper.getGroupSender() == null || messageWrapper.getUsernameGetter() == null) {
                 throw new MessageNotSetException();
             }
             uiContext.setFriendList(messageWrapper.getFriends());
             uiContext.setCurrentUser(messageWrapper.getCurrentUser());
             uiContext.setSender(messageWrapper.getSender());
             uiContext.setGroupSender(messageWrapper.getGroupSender());
+            uiContext.setUsernameGetter(messageWrapper.getUsernameGetter());
         } catch (MessageNotSetException e) {
             e.printStackTrace();
         }
@@ -71,6 +74,7 @@ public class MainDemo extends Application {
         JFXDecorator decorator = new JFXDecorator(stage, container.getView());
         decorator.setCustomMaximize(true);
         decorator.setGraphic(new SVGGlyph(""));
+        decorator.setOnCloseButtonAction(() -> System.exit(0));
 
         stage.setTitle("Instant Message Demo");
 

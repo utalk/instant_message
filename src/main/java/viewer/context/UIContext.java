@@ -1,5 +1,6 @@
 package viewer.context;
 
+import connector.UsernameGetter;
 import kademlia.ChatService.GroupSender;
 import kademlia.ChatService.Sender;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class UIContext {
     private boolean groupTalking;
     private Sender sender;
     private GroupSender groupSender;
+    private UsernameGetter usernameGetter;
 
     private Map<String, List<ChatMessage>> p2pTalkingMessages = new HashMap<>();
     private List<ChatMessage> groupTalkingMessages = new ArrayList<>();
