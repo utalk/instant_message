@@ -1,6 +1,7 @@
 package kademlia.ChatService;
 
 import com.google.gson.Gson;
+import connector.InitializerImpl;
 import javafx.application.Platform;
 import model.ChatMessage;
 import model.LogMessage;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Receiver_Impl implements Receiver {
-    GroupSender sender = new GroupSender_Impl();
+    GroupSender sender = InitializerImpl.getGroupSender();
     //这是界面方法
     private void receiveUIMessage(ChatMessage message) {
         Platform.runLater(() -> {

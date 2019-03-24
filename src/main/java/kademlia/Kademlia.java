@@ -107,6 +107,7 @@ public class Kademlia {
             routingTable.addNode(reply.getOrigin());
         });
 
+        System.out.println("FINDNODE!!!");
         // FIND_NODE with own IDs to find nearby nodes
         client.sendFindNode(bootstrapNode, localNode.getId(), nodes -> {
             LOGGER.debug("bootstrapping node={}, sendFind node from remote={} received, nodes={}", localNode, bootstrapNode, nodes.size());
@@ -114,7 +115,7 @@ public class Kademlia {
         });
 
         LOGGER.debug("bootstrapping node={}, refreshing buckets", localNode);
-        refreshBuckets();
+//        refreshBuckets();
     }
 
 

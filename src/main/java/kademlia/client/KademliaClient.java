@@ -38,7 +38,7 @@ public class KademliaClient {
 
     private Codec codec = new Codec();
 
-    private final Duration timeout = Duration.ofSeconds(30);
+    private final Duration timeout = Duration.ofSeconds(1);
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -60,7 +60,7 @@ public class KademliaClient {
         // 3 tries
         Retry.builder()
                 .interval(1000)
-                .retries(3)
+                .retries(1)
                 .sender(() -> {
                     try {
                         byte[] payload = codec.encode(msg);
@@ -83,7 +83,7 @@ public class KademliaClient {
                         try {
                             future.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
                         } catch (TimeoutException e) {
-                            future.cancel(true);
+                            future.cancel(false);
                         }
                     } catch (UnsupportedEncodingException e) {
                         LOGGER.error("unsupported encoding for encoding msg", e);
@@ -142,6 +142,7 @@ public class KademliaClient {
 
     public void sendMessageToNode(Node node, Key key, String value) throws TimeoutException {
         final long seqId = random.nextLong();
+        System.out.println("SEND MESSAGE" + this.localNode.getId() + " TO " + node.getId());
         send(node, seqId, new SendMessage(seqId,localNode, key, value),
                 message -> {
 
