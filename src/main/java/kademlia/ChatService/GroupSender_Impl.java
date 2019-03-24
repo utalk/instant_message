@@ -19,7 +19,10 @@ public class GroupSender_Impl implements GroupSender {
 
     private Sender sender;
 
-    public GroupSender_Impl() {
+    public GroupSender_Impl(String[] idArray) {
+        for (int i = 0; i < idArray.length; i++) {
+            this.groupMatrix[i/3][i%3] = idArray[i];
+        }
     }
 
     public GroupSender_Impl(String[][] groupMatrix) {
