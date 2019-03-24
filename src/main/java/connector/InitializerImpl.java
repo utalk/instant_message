@@ -61,6 +61,7 @@ public class InitializerImpl implements Initializer {
 
         wrapper.setFriends(friends);
         wrapper.setSender(sender);
+        //TODO 这里还要初始化groupSender并setGroupSender
         return wrapper;
     }
 }
