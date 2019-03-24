@@ -77,7 +77,6 @@ public class Kademlia {
         this.localNode = Node.builder().id(config.getNodeId())
                 .advertisedListeners(config.getAdvertisedListeners())
                 .build();
-
         try {
             this.client = new KademliaClient(new DatagramSocket(), config, localNode);
         } catch (SocketException e) {
@@ -107,7 +106,6 @@ public class Kademlia {
             routingTable.addNode(reply.getOrigin());
         });
 
-        System.out.println("FINDNODE!!!");
         // FIND_NODE with own IDs to find nearby nodes
         client.sendFindNode(bootstrapNode, localNode.getId(), nodes -> {
             LOGGER.debug("bootstrapping node={}, sendFind node from remote={} received, nodes={}", localNode, bootstrapNode, nodes.size());
@@ -123,18 +121,28 @@ public class Kademlia {
      *  send message
      */
     public void send(Key key, String value) throws TimeoutException{
-        client.sendFindNode(localNode, key, nodes -> {
-            nodes.stream().forEach(node -> {
-               if(node.getId().equals(key)){
-                   try {
-                       client.sendMessageToNode(node, key ,value);
-                   } catch (TimeoutException e) {
-                       LOGGER.error("Put value time out!");
-                       e.printStackTrace();
-                   }
-               }
+        List<Node> nodes = routingTable.getBucketStream()
+                .flatMap(bucket -> bucket.getNodes().stream())
+                .filter(node -> node.getId().equals(key))
+                .collect(Collectors.toList());
+        if(nodes.size() == 0){
+            client.sendFindNode(localNode, key, findNodes -> {
+                findNodes.stream().forEach(node -> {
+                    routingTable.addNode(node);
+                });
             });
-        });
+            try {
+                Thread.sleep(51);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            client.sendMessageToNode(nodes.get(0), key ,value);
+        } catch (TimeoutException e) {
+            LOGGER.error("Put value time out!");
+            e.printStackTrace();
+        }
     }
 
     /**

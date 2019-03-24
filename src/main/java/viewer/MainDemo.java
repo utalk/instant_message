@@ -31,7 +31,7 @@ public class MainDemo extends Application {
 
     private UIContext uiContext = UIContext.getInstance();
 
-    private static int init_id = 0;
+    private static int init_id = 1;
 
     public static void main(String[] args) {
         if (args.length == 1) {

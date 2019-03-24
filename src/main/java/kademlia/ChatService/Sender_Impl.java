@@ -16,7 +16,6 @@ public class Sender_Impl implements Sender {
 
     @Override
     public void send(ChatMessage message) {
-        System.out.println("send");
         Map<String, String> parameters = new HashMap<String, String>();
         try {
             System.out.println(new Gson().toJson(message));

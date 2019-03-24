@@ -51,7 +51,6 @@ public class KademliaClient {
 
     private void send(Node node, long seqId, Message msg, Consumer<Message> consumer) throws TimeoutException, NoMatchingListener {
         kademliaClientHandler.registerHandler(seqId, consumer);
-
         UDPListener udpListener = node.getAdvertisedListeners().stream()
                 .filter(listener -> listener.getType() == ListenerType.UDP)
                 .map(listener -> (UDPListener) listener)
@@ -60,7 +59,7 @@ public class KademliaClient {
         // 3 tries
         Retry.builder()
                 .interval(1000)
-                .retries(1)
+                .retries(3)
                 .sender(() -> {
                     try {
                         byte[] payload = codec.encode(msg);
@@ -97,7 +96,7 @@ public class KademliaClient {
     }
 
     public void sendPing(Node node, Consumer<PingReply> pongConsumer) throws TimeoutException {
-        long seqId = random.nextLong();
+        final long seqId = random.nextLong();
         send(node, seqId, new Ping(seqId, localNode), msg -> {
             pongConsumer.accept((PingReply) msg);
         });
@@ -105,7 +104,7 @@ public class KademliaClient {
 
 
     public void sendFindNode(Node node, Key key, Consumer<List<Node>> callback) throws TimeoutException {
-        long seqId = random.nextLong();
+        final long seqId = random.nextLong();
         send(node, seqId, new FindNode(seqId, localNode, key),
                 message -> {
                     NodeReply nodeReply = (NodeReply) message;
@@ -116,7 +115,7 @@ public class KademliaClient {
 
     public void sendFindValue(Node node, Key key,
                               Consumer<NodeReply> nodeReplyConsumer, Consumer<ValueReply> valueReplyConsumer) throws TimeoutException {
-        long seqId = random.nextLong();
+        final long seqId = random.nextLong();
         send(node, seqId, new FindValue(seqId, localNode, key),
                 message -> {
                     if (message.getType() == MessageType.NODE_REPLY) {
@@ -135,17 +134,14 @@ public class KademliaClient {
         final long seqId = random.nextLong();
         send(node, seqId, new Store(seqId,localNode, key, value),
                 message -> {
-
                 }
         );
     }
 
     public void sendMessageToNode(Node node, Key key, String value) throws TimeoutException {
         final long seqId = random.nextLong();
-        System.out.println("SEND MESSAGE" + this.localNode.getId() + " TO " + node.getId());
         send(node, seqId, new SendMessage(seqId,localNode, key, value),
                 message -> {
-
                 }
         );
     }
