@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import com.jfoenix.controls.*?>
@@ -40,7 +41,10 @@
             <children>
                 <JFXScrollPane id="scrollPane" prefHeight="431.0" prefWidth="613.0" style="-fx-background-color: gray;">
                     <children>
-                        <VBox id="vBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgray;" />
+                        <VBox id="vBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgray;">
+                     <children>
+                        <Label fx:id="title" style="-fx-text-fill: gray; -fx-font-size: 22;" text="title" />
+                     </children></VBox>
                     </children>
                 </JFXScrollPane>
                 <AnchorPane id="textAreaContainer">

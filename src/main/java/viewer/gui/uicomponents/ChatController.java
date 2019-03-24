@@ -3,6 +3,7 @@ package viewer.gui.uicomponents;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
+import connector.UsernameGetter;
 import io.datafx.controller.ViewNode;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
@@ -12,8 +13,6 @@ import kademlia.ChatService.Sender;
 import model.ChatMessage;
 import viewer.context.UIContext;
 import io.datafx.controller.ViewController;
-import io.datafx.controller.flow.action.ActionMethod;
-import io.datafx.controller.flow.action.ActionTrigger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -33,6 +32,8 @@ public class ChatController implements UIMessageReceiver {
 
     @ViewNode("scrollPane")
     private JFXScrollPane scrollPane;
+    @ViewNode("title")
+    private Label title;
     @FXML
     private VBox vBox;
 
@@ -53,6 +54,14 @@ public class ChatController implements UIMessageReceiver {
 
     @PostConstruct
     private void construct() {
+        UsernameGetter usernameGetter = uiContext.getUsernameGetter();
+        String from = usernameGetter.getUsername(uiContext.getCurrentUser());
+        if (uiContext.isGroupTalking()) {
+            title.setText("您(" + from + ")正处在群聊中");
+        } else {
+            String to = usernameGetter.getUsername(uiContext.getToUser());
+            title.setText("您(" + from + ")与Ta(" + to + ")正在聊天");
+        }
         button.setOnAction(e -> handleSend());
         uiContext.setUiMessageReceiver(this);
         scrollPane.prefHeightProperty().bind(outer.heightProperty().multiply(4.0 / 7));
@@ -84,7 +93,7 @@ public class ChatController implements UIMessageReceiver {
     }
 
     private void addMessageToScreen(ChatMessage chatMessage) {
-        Label message = new Label(chatMessage.getFrom() + "@" + new Date(chatMessage.getTime()).toString());
+        Label message = new Label(uiContext.getUsernameGetter().getUsername(chatMessage.getFrom()) + "@" + new Date(chatMessage.getTime()).toString());
         Label messageText = new Label(chatMessage.getContent());
         messageText.setTextFill(Color.GREEN);
         messageText.setFont(Font.font("Cambria", 50));
