@@ -1,5 +1,6 @@
 package viewer.context;
 
+import kademlia.ChatService.GroupSender;
 import kademlia.ChatService.Sender;
 import lombok.Data;
 import model.ChatMessage;
@@ -16,6 +17,7 @@ public class UIContext {
     private String currentUser = "undefined";
     private boolean groupTalking;
     private Sender sender;
+    private GroupSender groupSender;
 
     private Map<String, List<ChatMessage>> p2pTalkingMessages = new HashMap<>();
     private List<ChatMessage> groupTalkingMessages = new ArrayList<>();

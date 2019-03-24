@@ -42,13 +42,14 @@ public class MainDemo extends Application {
     public void start(Stage stage) throws Exception {
         MessageWrapper messageWrapper = initializer.init(init_id);
         try {
-            if (messageWrapper == null || messageWrapper.getSender() == null || messageWrapper.getCurrentUser() == null || messageWrapper.getFriends() == null) {
+            if (messageWrapper == null || messageWrapper.getSender() == null || messageWrapper.getCurrentUser() == null || messageWrapper.getFriends() == null || messageWrapper.getGroupSender() == null) {
                 throw new MessageNotSetException();
             }
             uiContext.setFriendList(messageWrapper.getFriends());
             uiContext.setCurrentUser(messageWrapper.getCurrentUser());
             uiContext.setSender(messageWrapper.getSender());
-        }catch (MessageNotSetException e){
+            uiContext.setGroupSender(messageWrapper.getGroupSender());
+        } catch (MessageNotSetException e) {
             e.printStackTrace();
         }
 
