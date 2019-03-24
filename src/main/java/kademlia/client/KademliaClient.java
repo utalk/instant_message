@@ -38,7 +38,7 @@ public class KademliaClient {
 
     private Codec codec = new Codec();
 
-    private final Duration timeout = Duration.ofSeconds(30);
+    private final Duration timeout = Duration.ofMillis(50);
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
