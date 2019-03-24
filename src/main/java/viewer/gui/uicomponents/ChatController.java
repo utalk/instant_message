@@ -64,7 +64,6 @@ public class ChatController implements UIMessageReceiver {
 
     private void handleSend() {
         ChatMessage chatMessage = new ChatMessage(uiContext.getCurrentUser(), uiContext.getToUser(), textArea.getText(), uiContext.isGroupTalking());
-        System.out.println("################################"+uiContext.isGroupTalking());
         sendMessage(chatMessage);
         textArea.setText("");
     }
