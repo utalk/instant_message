@@ -7,6 +7,7 @@ import io.datafx.controller.ViewNode;
 import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import kademlia.ChatService.GroupSender;
 import kademlia.ChatService.Sender;
 import model.ChatMessage;
 import viewer.context.UIContext;
@@ -116,11 +117,20 @@ public class ChatController implements UIMessageReceiver {
     }
 
     private void sendMessage(ChatMessage chatMessage) {
-        Sender sender = uiContext.getSender();
-        if (sender != null) {
-            sender.send(chatMessage);
-            writeMessageData(chatMessage, OperationType.SEND);
-            addMessageToScreen(chatMessage);
+        if (!chatMessage.isGroup()) {
+            Sender sender = uiContext.getSender();
+            if (sender != null) {
+                sender.send(chatMessage);
+                writeMessageData(chatMessage, OperationType.SEND);
+                addMessageToScreen(chatMessage);
+            }
+        } else {
+            GroupSender groupSender = uiContext.getGroupSender();
+            if (groupSender != null) {
+                groupSender.send(chatMessage);
+                writeMessageData(chatMessage, OperationType.SEND);
+                addMessageToScreen(chatMessage);
+            }
         }
     }
 
