@@ -1,6 +1,8 @@
 package viewer.gui.main;
 
 import com.jfoenix.controls.*;
+import javafx.scene.control.Label;
+import viewer.context.UIContext;
 import viewer.datafx.ExtendedAnimatedFlowContainer;
 import viewer.gui.sidemenu.SideMenuController;
 import viewer.gui.uicomponents.ChatController;
@@ -33,14 +35,18 @@ public final class MainController {
     @FXML
     private JFXHamburger titleBurger;
 
-//    @FXML
+    //    @FXML
 //    private StackPane optionsBurger;
 //    @FXML
 //    private JFXRippler optionsRippler;
     @FXML
     private JFXDrawer drawer;
+    @FXML
+    private Label title;
 
 //    private JFXPopup toolbarPopup;
+
+    private UIContext uiContext = UIContext.getInstance();
 
     /**
      * init fxml when loaded.
@@ -92,7 +98,8 @@ public final class MainController {
         Flow sideMenuFlow = new Flow(SideMenuController.class);
         final FlowHandler sideMenuFlowHandler = sideMenuFlow.createHandler(context);
         drawer.setSidePane(sideMenuFlowHandler.start(new ExtendedAnimatedFlowContainer(containerAnimationDuration,
-                                                                                       SWIPE_LEFT)));
+                SWIPE_LEFT)));
+        title.setText(uiContext.getUsernameGetter().getUsername(uiContext.getCurrentUser()) + "的聊天框");
     }
 
 //    public static final class InputController {

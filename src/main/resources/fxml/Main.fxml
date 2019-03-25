@@ -20,7 +20,7 @@
                                 </JFXHamburger>
                             </StackPane>
                         </JFXRippler>
-                        <Label>聊天</Label>
+                        <Label fx:id="title">聊天</Label>
                     </leftItems>
                     <!--<rightItems>-->
                         <!--<JFXRippler fx:id="optionsRippler" maskType="CIRCLE"-->
