@@ -14,6 +14,7 @@ public class ChatMessage {
 
     private boolean group;
 
+
     public ChatMessage(String from, String to, String content, boolean group) {
         this.time = System.currentTimeMillis();
         this.messageID = from + time;
@@ -23,7 +24,7 @@ public class ChatMessage {
         this.group = group;
     }
 
-    public ChatMessage(ChatMessage message){
+    public ChatMessage(ChatMessage message) {
         this.messageID = message.messageID;
         this.from = message.from;
         this.to = message.to;
@@ -77,6 +78,17 @@ public class ChatMessage {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ChatMessage)) {
+            return false;
+        }
+        return messageID.equals(((ChatMessage) obj).getMessageID());
     }
 }
 
