@@ -56,7 +56,7 @@ public class ChatController implements UIMessageReceiver {
     private boolean press_ctrl = false;
     private boolean press_enter = false;
 
-    private boolean check_single_same = false;
+    private static final boolean check_single_same = false;
 
     @PostConstruct
     private void construct() {
