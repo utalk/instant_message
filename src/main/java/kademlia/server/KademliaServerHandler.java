@@ -52,6 +52,7 @@ public class KademliaServerHandler {
         }
         else if(message.getType() == MessageType.FIND_NODE) {
             FindNode findNode = (FindNode) message;
+            routingTable.addNode(message.getOrigin());
             List<Node> closest = routingTable.findClosest(findNode.getLookupId(), kValue);
             respond(codec.encode(new NodeReply(message.getSeqId(),localNode, closest)), packet.getSocketAddress());
         }
