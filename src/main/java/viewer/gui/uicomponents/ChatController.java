@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextArea;
 import connector.UsernameGetter;
 import io.datafx.controller.ViewNode;
 import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import kademlia.ChatService.GroupSender;
@@ -31,10 +32,12 @@ public class ChatController implements UIMessageReceiver {
 
     @ViewNode("scrollPane")
     private JFXScrollPane scrollPane;
-    @ViewNode("title")
-    private Label title;
-    @FXML
-    private VBox vBox;
+
+    //这个一开始不在组建中需要初始化
+    private VBox vBox = new VBox();
+
+    //这个一开始不在组建中需要初始化
+    private Label title = new Label();
 
 
     @ViewNode("textAreaContainer")
@@ -56,8 +59,13 @@ public class ChatController implements UIMessageReceiver {
 
     @PostConstruct
     private void construct() {
+        vBox.setStyle("-fx-background-color: lightgray");
+        title.setStyle("-fx-text-fill:WHITE; -fx-font-size: 26;");
         scrollPane.setContent(vBox);
-        scrollPane.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
+        scrollPane.getBottomBar().getChildren().add(title);
+        ScrollPane innerScrollPane = (ScrollPane) scrollPane.getChildren().get(0);
+//        innerScrollPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,null,null)));
+        JFXScrollPane.smoothScrolling(innerScrollPane);
         UsernameGetter usernameGetter = uiContext.getUsernameGetter();
         String from = usernameGetter.getUsername(uiContext.getCurrentUser());
         if (uiContext.isGroupTalking()) {

@@ -39,15 +39,7 @@
         <!--</VBox>-->
         <VBox id="outer">
            <children>
-               <JFXScrollPane id="scrollPane" maxHeight="-Infinity" prefHeight="431.0" prefWidth="613.0">
-                   <children>
-                       <VBox id="vBox" alignment="TOP_CENTER" style="-fx-background-color: lightgray;">
-                          <children>
-                              <Label fx:id="title" style="-fx-text-fill: gray; -fx-font-size: 22;" text="title" />
-                          </children>
-                       </VBox>
-                   </children>
-               </JFXScrollPane>
+               <JFXScrollPane id="scrollPane" maxHeight="-Infinity" prefHeight="431.0" prefWidth="613.0" />
                <AnchorPane id="textAreaContainer">
                   <children>
                       <JFXTextArea id="textArea" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
