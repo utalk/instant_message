@@ -48,6 +48,7 @@ public class GroupSender_Impl implements GroupSender {
         String lastUser = msg.getFrom();//消息来源的用户id
         int index = InitializerImpl.current_ID;//当前用户id，在群聊问题中收到msg的to都是当前用户
         String currUser = this.groupMatrix[index/3][index%3];
+        System.out.println("当前发消息的用户是 = " + currUser);
         List<String> userIdToSent = this.findUserIdToSent(lastUser , currUser);//查询到接下来应该发送的用户
 
         userIdToSent.forEach(nextId -> {
@@ -57,9 +58,12 @@ public class GroupSender_Impl implements GroupSender {
             msg.setTo(nextId);
             System.out.println("群聊当前发送的消息是" + new Gson().toJson(msg));
             this.sender.send(msg);
+
         });
 
 
+        //添加已发送的id
+        this.idHasBeenSent.add(msg.getMessageID());
 
 
         return true;
