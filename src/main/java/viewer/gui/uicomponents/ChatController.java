@@ -128,17 +128,28 @@ public class ChatController implements UIMessageReceiver {
     }
 
     private void addMessageToScreenIfIsAReply(ChatMessage chatMessage) {
-        //当前是群聊页面且是群聊消息
-        boolean groupCondition = uiContext.isGroupTalking() && chatMessage.isGroup();
-        //当前不是群聊页面，不是群聊消息
-        boolean p2pCondition = !uiContext.isGroupTalking() && !chatMessage.isGroup();
-        boolean onceSendTo = uiContext.getToUser().equals(chatMessage.getFrom());
-        boolean currentTarget = uiContext.getCurrentUser().equals(chatMessage.getTo());
-        if (groupCondition || (p2pCondition && onceSendTo && currentTarget)) {
+        if (isGroupCondition(chatMessage) || (isP2PCondition(chatMessage) && isOnceSendTo(chatMessage) && isCurrentTarget(chatMessage))) {
             addMessageToScreen(chatMessage);
         }
     }
 
+    //当前是群聊页面且是群聊消息
+    private boolean isGroupCondition(ChatMessage chatMessage) {
+        return uiContext.isGroupTalking() && chatMessage.isGroup();
+    }
+
+    //当前不是群聊页面，不是群聊消息
+    private boolean isP2PCondition(ChatMessage chatMessage) {
+        return !uiContext.isGroupTalking() && !chatMessage.isGroup();
+    }
+
+    private boolean isOnceSendTo(ChatMessage chatMessage) {
+        return uiContext.getToUser().equals(chatMessage.getFrom());
+    }
+
+    private boolean isCurrentTarget(ChatMessage chatMessage) {
+        return uiContext.getCurrentUser().equals(chatMessage.getTo());
+    }
 
     @Override
     public void receiveUIMessage(ChatMessage chatMessage) {
