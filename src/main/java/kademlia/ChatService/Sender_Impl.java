@@ -18,7 +18,7 @@ public class Sender_Impl implements Sender {
     public void send(ChatMessage message) {
         Map<String, String> parameters = new HashMap<String, String>();
         try {
-            System.out.println(new Gson().toJson(message));
+            System.out.println("sender 发送 " + new Gson().toJson(message));
             kademlia.send(Key.build(message.getTo()), new Gson().toJson(message));
             // 输出日志
             parameters.put("value", new Gson().toJson(new LogMessage(message.getMessageID(),

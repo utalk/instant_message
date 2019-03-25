@@ -23,6 +23,14 @@ public class ChatMessage {
         this.group = group;
     }
 
+    public ChatMessage(ChatMessage message){
+        this.messageID = message.messageID;
+        this.from = message.from;
+        this.to = message.to;
+        this.content = message.content;
+        this.group = message.group;
+    }
+
     public String getMessageID() {
         return messageID;
     }
