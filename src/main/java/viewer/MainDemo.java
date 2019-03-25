@@ -19,7 +19,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class MainDemo extends Application {
@@ -31,7 +30,7 @@ public class MainDemo extends Application {
 
     private UIContext uiContext = UIContext.getInstance();
 
-    private static int init_id = 3;
+    private static int init_id = 2;
 
     public static void main(String[] args) {
         if (args.length == 1) {

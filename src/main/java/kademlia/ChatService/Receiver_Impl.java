@@ -33,7 +33,7 @@ public class Receiver_Impl implements Receiver {
         parameters.put("value", new Gson().toJson(new LogMessage(m.getMessageID(),
                 m.getFrom(), m.getTo(), m.getContent(),
                 m.getTime(), "receive")));
-//        HttpUtil.sendGet("", parameters);
+
 
         if (m.isGroup()) {
             sender.send(m);
