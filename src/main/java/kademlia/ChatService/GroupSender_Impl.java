@@ -1,5 +1,6 @@
 package kademlia.ChatService;
 
+import com.google.gson.Gson;
 import connector.InitializerImpl;
 import model.ChatMessage;
 
@@ -54,7 +55,7 @@ public class GroupSender_Impl implements GroupSender {
             //这里原来应该clone一下的，但是偷懒了，如果有bug，都怪我~~~~~~~~~
             msg.setFrom(currUser);
             msg.setTo(nextId);
-            System.out.println("当前发送的消息是" + msg);
+            System.out.println("群聊当前发送的消息是" + new Gson().toJson(msg));
             this.sender.send(msg);
         });
 
