@@ -137,7 +137,7 @@ public class ChatController implements UIMessageReceiver {
     }
 
     private void addMessageToScreenIfIsAReply(ChatMessage chatMessage) {
-        if (isGroupCondition(chatMessage) || (isP2PCondition(chatMessage) && isOnceSendTo(chatMessage) && isCurrentTarget(chatMessage))) {
+        if ((isGroupCondition(chatMessage) && !uiContext.getGroupTalkingMessages().contains(chatMessage)) || (isP2PCondition(chatMessage) && isOnceSendTo(chatMessage) && isCurrentTarget(chatMessage))) {
             addMessageToScreen(chatMessage);
         }
     }
