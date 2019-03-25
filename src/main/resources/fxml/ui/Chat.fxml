@@ -50,7 +50,7 @@
                        <Insets right="20.0" />
                    </padding>
                   <children>
-                      <JFXButton id="button" buttonType="RAISED" layoutX="15.0" layoutY="50.0" prefHeight="40" prefWidth="100" style="-fx-background-color:#5264AE;-fx-font-size:14px;" text="发送">
+                      <JFXButton id="button" buttonType="RAISED" layoutX="15.0" layoutY="50.0" prefHeight="40" prefWidth="100" style="-fx-background-color: #5264AE; -fx-font-size: 18; -fx-text-fill: white;" text="发送">
                 </JFXButton>
                   </children>
                </HBox>
