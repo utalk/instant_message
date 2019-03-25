@@ -52,12 +52,13 @@ public class GroupSender_Impl implements GroupSender {
         List<String> userIdToSent = this.findUserIdToSent(lastUser , currUser);//查询到接下来应该发送的用户
 
         userIdToSent.forEach(nextId -> {
+            ChatMessage temp_meg = new ChatMessage(msg);
             //更改信息的发送者，和接收者
             //这里原来应该clone一下的，但是偷懒了，如果有bug，都怪我~~~~~~~~~
-            msg.setFrom(currUser);
-            msg.setTo(nextId);
-            System.out.println("群聊当前发送的消息是" + new Gson().toJson(msg));
-            this.sender.send(msg);
+//            temp_meg.setFrom(currUser);
+            temp_meg.setTo(nextId);
+            System.out.println("群聊当前发送的消息是" + new Gson().toJson(temp_meg));
+            this.sender.send(temp_meg);
 
         });
 
@@ -68,7 +69,6 @@ public class GroupSender_Impl implements GroupSender {
 
         return true;
     }
-
 
     /**
      * 找到接下来发送信息的用户id list
