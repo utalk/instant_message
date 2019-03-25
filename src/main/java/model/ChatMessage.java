@@ -30,6 +30,7 @@ public class ChatMessage {
         this.to = message.to;
         this.content = message.content;
         this.group = message.group;
+        this.time = message.time;
     }
 
     public String getMessageID() {

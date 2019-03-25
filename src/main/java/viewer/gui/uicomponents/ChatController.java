@@ -8,7 +8,6 @@ import io.datafx.controller.ViewNode;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
 import kademlia.ChatService.GroupSender;
 import kademlia.ChatService.Sender;
 import model.ChatMessage;
@@ -56,6 +55,8 @@ public class ChatController implements UIMessageReceiver {
 
     private boolean press_ctrl = false;
     private boolean press_enter = false;
+
+    private boolean check_single_same = false;
 
     @PostConstruct
     private void construct() {
@@ -137,7 +138,7 @@ public class ChatController implements UIMessageReceiver {
     }
 
     private void addMessageToScreenIfIsAReply(ChatMessage chatMessage) {
-        if ((isGroupCondition(chatMessage) && !uiContext.getGroupTalkingMessages().contains(chatMessage)) || (isP2PCondition(chatMessage) && isOnceSendTo(chatMessage) && isCurrentTarget(chatMessage))) {
+        if (isGroupCondition(chatMessage) || (isP2PCondition(chatMessage) && isOnceSendTo(chatMessage) && isCurrentTarget(chatMessage))) {
             addMessageToScreen(chatMessage);
         }
     }
@@ -163,8 +164,10 @@ public class ChatController implements UIMessageReceiver {
     @Override
     public void receiveUIMessage(ChatMessage chatMessage) {
         uiContext.setUiMessageReceiver(this);
-        writeMessageData(chatMessage, OperationType.RECEIVE);
-        addMessageToScreenIfIsAReply(chatMessage);
+        if (!checkMessageExisted(chatMessage, check_single_same)) {
+            writeMessageData(chatMessage, OperationType.RECEIVE);
+            addMessageToScreenIfIsAReply(chatMessage);
+        }
     }
 
     private void sendMessage(ChatMessage chatMessage) {
@@ -185,6 +188,32 @@ public class ChatController implements UIMessageReceiver {
         }
     }
 
+    private boolean checkMessageExisted(ChatMessage chatMessage, boolean singleCheck) {
+        String key = chatMessage.getFrom();
+        if (chatMessage.isGroup()) {
+            List<ChatMessage> chatMessages = uiContext.getGroupTalkingMessages();
+            if (chatMessages != null) {
+                return chatMessages.contains(chatMessage);
+            } else {
+                return false;
+            }
+        } else if (singleCheck) {
+            Map<String, List<ChatMessage>> p2pTalkingMessages = uiContext.getP2pTalkingMessages();
+            if (p2pTalkingMessages != null) {
+                List<ChatMessage> resultMessages = p2pTalkingMessages.get(key);
+                if (resultMessages != null) {
+                    return resultMessages.contains(chatMessage);
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     private void writeMessageData(ChatMessage chatMessage, OperationType operationType) {
         String key;
         if (operationType.equals(OperationType.SEND)) {
@@ -196,7 +225,7 @@ public class ChatController implements UIMessageReceiver {
         }
         if (chatMessage.isGroup()) {
             List<ChatMessage> chatMessages = uiContext.getGroupTalkingMessages();
-            if (chatMessages != null && !chatMessages.contains(chatMessage)) {
+            if (chatMessages != null) {
                 chatMessages.add(chatMessage);
             } else {
                 chatMessages = new ArrayList<>();
