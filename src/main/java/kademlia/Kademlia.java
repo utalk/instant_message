@@ -131,6 +131,10 @@ public class Kademlia {
                     routingTable.addNode(node);
                 });
             });
+            nodes = routingTable.getBucketStream()
+                    .flatMap(bucket -> bucket.getNodes().stream())
+                    .filter(node -> node.getId().equals(key))
+                    .collect(Collectors.toList());
             try {
                 Thread.sleep(51);
             } catch (InterruptedException e) {
@@ -138,7 +142,8 @@ public class Kademlia {
             }
         }
         try {
-            client.sendMessageToNode(nodes.get(0), key ,value);
+            if(nodes.size() > 0)
+                client.sendMessageToNode(nodes.get(0), key ,value);
         } catch (TimeoutException e) {
             LOGGER.error("Put value time out!");
             e.printStackTrace();
