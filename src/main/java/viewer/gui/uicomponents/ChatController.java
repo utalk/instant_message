@@ -6,8 +6,8 @@ import com.jfoenix.controls.JFXTextArea;
 import connector.UsernameGetter;
 import io.datafx.controller.ViewNode;
 import javafx.geometry.Pos;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import kademlia.ChatService.GroupSender;
 import kademlia.ChatService.Sender;
 import model.ChatMessage;
@@ -15,7 +15,6 @@ import viewer.context.UIContext;
 import io.datafx.controller.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -57,6 +56,8 @@ public class ChatController implements UIMessageReceiver {
 
     @PostConstruct
     private void construct() {
+        scrollPane.setContent(vBox);
+        scrollPane.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
         UsernameGetter usernameGetter = uiContext.getUsernameGetter();
         String from = usernameGetter.getUsername(uiContext.getCurrentUser());
         if (uiContext.isGroupTalking()) {
