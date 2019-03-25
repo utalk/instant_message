@@ -196,8 +196,12 @@ public class ChatController implements UIMessageReceiver {
         }
         if (chatMessage.isGroup()) {
             List<ChatMessage> chatMessages = uiContext.getGroupTalkingMessages();
-            if (chatMessages != null) {
+            if (chatMessages != null && !chatMessages.contains(chatMessage)) {
                 chatMessages.add(chatMessage);
+            } else {
+                chatMessages = new ArrayList<>();
+                chatMessages.add(chatMessage);
+                uiContext.setGroupTalkingMessages(chatMessages);
             }
         } else {
             Map<String, List<ChatMessage>> p2pTalkingMessages = uiContext.getP2pTalkingMessages();
