@@ -65,6 +65,7 @@ public class ChatController implements UIMessageReceiver {
         scrollPane.setContent(vBox);
         scrollPane.getBottomBar().getChildren().add(title);
         ScrollPane innerScrollPane = (ScrollPane) scrollPane.getChildren().get(0);
+        vBox.minHeightProperty().bind(scrollPane.prefHeightProperty());
 //        innerScrollPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,null,null)));
         JFXScrollPane.smoothScrolling(innerScrollPane);
         UsernameGetter usernameGetter = uiContext.getUsernameGetter();
