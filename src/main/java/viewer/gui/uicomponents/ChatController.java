@@ -65,6 +65,7 @@ public class ChatController implements UIMessageReceiver {
         scrollPane.setContent(vBox);
         scrollPane.getBottomBar().getChildren().add(title);
         ScrollPane innerScrollPane = (ScrollPane) scrollPane.getChildren().get(0);
+        vBox.minHeightProperty().bind(scrollPane.prefHeightProperty());
 //        innerScrollPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,null,null)));
         JFXScrollPane.smoothScrolling(innerScrollPane);
         UsernameGetter usernameGetter = uiContext.getUsernameGetter();
@@ -96,9 +97,8 @@ public class ChatController implements UIMessageReceiver {
             press_ctrl = false;
         });
         uiContext.setUiMessageReceiver(this);
-        scrollPane.prefHeightProperty().bind(outer.heightProperty().multiply(4.0 / 7));
-        textAreaContainer.prefHeightProperty().bind(outer.heightProperty().multiply(2.0 / 7));
-        footer.prefHeightProperty().bind(outer.heightProperty().multiply(1.0 / 7));
+        scrollPane.prefHeightProperty().bind(outer.heightProperty().subtract(footer.getPrefHeight()).multiply(4.0 / 7));
+        textAreaContainer.prefHeightProperty().bind(outer.heightProperty().subtract(footer.getPrefHeight()).multiply(3.0 / 7));
 
         render();
     }

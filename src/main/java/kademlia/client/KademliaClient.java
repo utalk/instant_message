@@ -4,6 +4,7 @@ import kademlia.config.Configuration;
 import kademlia.exception.NoMatchingListener;
 import kademlia.listener.ListenerType;
 import kademlia.listener.UDPListener;
+import kademlia.monitor.Monitor;
 import kademlia.node.Key;
 import kademlia.node.Node;
 import kademlia.protocol.*;
@@ -15,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
+import java.net.SocketException;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.List;
@@ -42,11 +44,19 @@ public class KademliaClient {
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
+    private Monitor monitor;
+
     public KademliaClient(DatagramSocket socket, Configuration config, Node localNode) {
         this.localNode = localNode;
         this.config = config;
         this.socket = socket;
         kademliaClientHandler = new KademliaClientHandler();
+
+        try {
+            monitor = new Monitor(8888);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
     }
 
     private void send(Node node, long seqId, Message msg, Consumer<Message> consumer) throws TimeoutException, NoMatchingListener {
@@ -100,15 +110,30 @@ public class KademliaClient {
         send(node, seqId, new Ping(seqId, localNode), msg -> {
             pongConsumer.accept((PingReply) msg);
         });
+        try {
+            monitor.message(localNode.getId().toString(), node.getId().toString(), "PING");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     public void sendFindNode(Node node, Key key, Consumer<List<Node>> callback) throws TimeoutException {
         final long seqId = random.nextLong();
+        try {
+            monitor.message(localNode.getId().toString(), node.getId().toString(), "FIND_NODE");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         send(node, seqId, new FindNode(seqId, localNode, key),
                 message -> {
                     NodeReply nodeReply = (NodeReply) message;
                     callback.accept(nodeReply.getNodes());
+                    try {
+                        monitor.message(node.getId().toString(), localNode.getId().toString(), "REPLY_NODE");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
         );
     }
@@ -140,10 +165,16 @@ public class KademliaClient {
 
     public void sendMessageToNode(Node node, Key key, String value) throws TimeoutException {
         final long seqId = random.nextLong();
+        try {
+            monitor.message(localNode.getId().toString(), node.getId().toString(), "SEND");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         send(node, seqId, new SendMessage(seqId,localNode, key, value),
                 message -> {
                 }
         );
+
     }
 
     public void close() {

@@ -10,6 +10,8 @@ public class ChatMessage {
 
     private String content;
 
+    private String before;
+
     private long time;
 
     private boolean group;
@@ -79,6 +81,14 @@ public class ChatMessage {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public String getBefore() {
+        return before;
+    }
+
+    public void setBefore(String before) {
+        this.before = before;
     }
 
     @Override

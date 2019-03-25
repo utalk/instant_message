@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 
 public class InitializerImpl implements Initializer {
 
-    private static String[] KEYS;
+    public static String[] KEYS;
 
     public static int current_ID;
 
@@ -51,8 +51,9 @@ public class InitializerImpl implements Initializer {
 
         if (ID != 0) {
             try {
-                Sender_Impl.kademlia.bootstrap(Node.builder().id(Key.build(KEYS[0])).advertisedListener(
-                        new UDPListener("udp://127.0.0.1:9000")
+                for(int i = 0; i< ID; i++ )
+                Sender_Impl.kademlia.bootstrap(Node.builder().id(Key.build(KEYS[i])).advertisedListener(
+                        new UDPListener("udp://127.0.0.1:900" + i)
                 ).build());
 
 //                sender.send(new ChatMessage(wrapper.getCurrentUser(),KEYS[0],"11sdfsd",false));
